@@ -1,16 +1,14 @@
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
+
 
 
 import vue from "@astrojs/vue";
 
 // https://astro.build/config
 export default defineConfig({
-  
+  adapter: vercel(),
   output: "server",
-  adapter: node({
-       mode: 'standalone'
-  }),
   integrations: [vue({
     ssr: true
   })]
