@@ -4,7 +4,7 @@ import Form from "../../components/Form.vue"
 
 const { id } = Astro.params;
 const url = Astro.url
-const publicApi = import.meta.env.PUBLIC_API_URL;
+const publicApi = 'https://strapi-project-4n5b.onrender.com'
 
 const fetchData = async () => {
   const response = await fetch( publicApi+'/api/propiedades/'+id+'?populate=*');
