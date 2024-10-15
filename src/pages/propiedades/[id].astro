@@ -1,10 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Form from "../../components/Form.vue"
+ 
 
 const { id } = Astro.params;
 const url = Astro.url
-const publicApi = 'https://strapi-project-4n5b.onrender.com'
+const publicApi = import.meta.env.PUBLIC_API_URL;
 
 const fetchData = async () => {
   const response = await fetch( publicApi+'/api/propiedades/'+id+'?populate=*');
@@ -31,8 +31,7 @@ const propiedad = dataPropiedad.data
 
 
 </Layout>
-
-<Form client:load/>
+ 
 
  
  
