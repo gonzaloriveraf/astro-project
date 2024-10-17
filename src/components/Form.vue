@@ -4,6 +4,8 @@ import { reactive } from 'vue';
 
 const name = ref('');
 const email = ref('');
+const publicApi = import.meta.env.PUBLIC_API_URL;
+
 
 const formData = reactive({
   data: {
@@ -15,10 +17,10 @@ const formData = reactive({
 
 const handleSubmit = async () => {
 
-    console.log('Product data saved:');
-
+console.log(formData);
+console.log("API URL:", publicApi);
   try {
-    const response = await fetch("http://localhost:1337/api/solicitudes", {
+    const response = await fetch(publicApi+"/api/solicitudes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,9 +42,8 @@ const handleSubmit = async () => {
 
 <template>
 
-   
-      <!-- Puedes agregar más campos si lo necesitas -->
-      <button @click ='handleSubmit' type="submit">Submit</button>
+
+      <button @click ='handleSubmit' type="button">Submit</button>
  
   </template>
   

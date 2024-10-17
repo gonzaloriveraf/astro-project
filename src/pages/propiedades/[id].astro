@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
- 
+import Form from "../../components/Form.vue"
 
 const { id } = Astro.params;
 const url = Astro.url
@@ -26,9 +26,11 @@ const propiedad = dataPropiedad.data
 <h3> {precio} </h3>
 <p> {detalles}</p>
 <ul>
-<li> Piscina: <strong> { piscina ? ( <p>'sí'</p> ): (  'no'  ) }  </strong> </li>
+{ piscina ? <li>   <p>piscina</p>   </li> : <p></p>  }    
 </ul>
 </Layout>
+
+<Form  client:load/>
 
  
  
