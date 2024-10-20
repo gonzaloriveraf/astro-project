@@ -1,38 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import Grid from "../components/Grid.vue";
 import "../styles/global.css";
 
-const publicApi = import.meta.env.PUBLIC_API_URL;
 
-const fetchData = async () => {
-  const response = await fetch(publicApi + "/api/propiedades");
-  const data = await response.json();
-  return data;
-};
-
-const dataList = await fetchData();
-
-console.log(dataList.data);
 ---
 
 <Layout title="Welcome to Astro.">
-  <section class="flex container">
-    <div class="w-1/6">saa</div>
-    <div class="grid grid-cols-4 gap-4 w-5/6">
-      {
-        dataList.data.map((element) => (
-          <Card
-            title={element.attributes.nombre}
-            precio={element.attributes.precio}
-            body={element.attributes.descripcion}
-            href={"propiedades/" + element.id}
-            published={element.attributes.publishedAt}
-          />
-        ))
-      }
-    </div>
-  </section>
+
+<Grid client:load />
+
 </Layout>
 
 <style>
