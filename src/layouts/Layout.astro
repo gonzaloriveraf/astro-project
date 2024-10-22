@@ -1,6 +1,8 @@
 ---
+
+import Footer from "../components/Footer.astro"
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -8,62 +10,67 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet">
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <nav class="mb-8 px-8 mt-8   w-11/12 flex justify-between mx-auto  items-center rounded-lg " >
+ 
+      <a href="/"> <img class="w-48" src="https://res.cloudinary.com/dn0wbcj1t/image/upload/v1729560176/Logo_75b0c000c2.svg" alt="QuietfInder" /></a>
+	  <a  class="  px-4 py-2 ml-auto font-semibold text-blue-950 bg-white transition-colors duration-300 transform rounded-full  hover:bg-gray-100" href="/#propiedades"> Propiedades </a>
+ 
+    </nav>
 
-<nav> 
-<a href="/"> Home</a>
+    <slot /> 
 
-</nav>
+	<Footer />
+
+</body>
 
 
-
-		<slot />
-		<script type="module" src="/src/scripts/bootstrap.js" defer></script>
-
-	</body>
+  </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #f4f4f4;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+  :root {
+    --accent: 136, 58, 234;
+    --accent-light: 224, 204, 250;
+    --accent-dark: 49, 10, 101;
+    --accent-gradient: linear-gradient(
+      45deg,
+      rgb(var(--accent)),
+      rgb(var(--accent-light)) 30%,
+      white 60%
+    );
+  }
+  html {
+    font-family: "Satoshi", sans-serif;
+    background: #f4f4f4;
+    background-size: 224px;
+    scroll-behavior: smooth;
+  }
+  code {
+    font-family:
+'Satoshi'
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
 
-	nav {
-		display: flex; 
-		background-color: #fff;
-		padding: 1rem;
-		margin: 0;
-
-	}
+  nav {
+    display: flex;
+    background-color: #fff;
+    padding: 1rem;
+    margin: 0;
+  }
 </style>

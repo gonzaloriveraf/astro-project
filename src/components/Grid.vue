@@ -22,14 +22,20 @@ async function fetchData(query='') {
     console.log('Data List actualizado:', dataList.value); 
     console.log('Longitud de dataList:', dataList.value.length);
     console.log('Primer elemento de dataList:', dataList.value[0]);
-
-
     return data
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 }
 
+
+ 
+const currencyFormatter = (number) => { 
+  
+  return number.toLocaleString('es-CL', {
+  style: 'currency',
+  currency: 'CLP'
+})};
 
 
 // Función para manejar el evento del filtro
@@ -45,24 +51,29 @@ onMounted(() => {
 </script>
 
 <template>
-
-<Spinner v-if="dataList.length == 0" client:load />
-  <section class="flex container " v-else>
-
-    
-    <div class="w-1/6">
-       <Filter @filterChanged="handleFilterChange" client:load /> 
-      </div>
-    <div class="grid grid-cols-4 gap-4 w-5/6 mx-auto px-10">
  
+  <div id="propiedades"  class="flex container mx-auto  h-100  items-center  gap-4 w-11/12 ">
+    <h2 class="text-left text-4xl my-8 font-semibold w-11/12" > Propiedades disponibles </h2>
+</div>
+  <section class="flex container mx-auto  justify-start align-start  items-start w-11/12" >
 
 
+    <div class="w-1/6">
+      
+       <Filter @filterChanged="handleFilterChange" client:load /> 
+       
+      </div>
+      <Spinner v-if="dataList.length == 0" client:load />
 
-        <Card  
+
+    <div v-else   class="grid grid-cols-4 gap-4 w-5/6 mx-auto px-10">
+ 
+ 
+        <Card 
         v-for="(element, index) in dataList"
         :key="index"
         :title="element.attributes.nombre"
-        :precio="element.attributes.precio"
+        :precio="currencyFormatter(element.attributes.precio)"
         :body="element.attributes.descripcion"
         :link="'propiedades/' + element.id"
         :tipo = "element.attributes.tipo"

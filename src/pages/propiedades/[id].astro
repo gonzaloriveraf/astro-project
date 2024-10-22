@@ -1,41 +1,76 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Form from "../../components/Form.vue"
+import Form from "../../components/Form.vue";
 
 const { id } = Astro.params;
-const url = Astro.url
+const url = Astro.url;
 const publicApi = import.meta.env.PUBLIC_API_URL;
 
 const fetchData = async () => {
-  const response = await fetch( publicApi+'/api/propiedades/'+id+'?populate=*');
+  const response = await fetch(
+    publicApi + "/api/propiedades/" + id + "?populate=*"
+  );
   const data = await response.json();
   return data;
 };
 
-
 const dataPropiedad = await fetchData();
-const { nombre , precio, descripcion , detalles , imagen, piscina } = dataPropiedad.data.attributes
-const propiedad = dataPropiedad.data
+const { nombre, precio, descripcion, detalles, imagen, piscina, ubicacion } = dataPropiedad.data.attributes;
+
+const currencyFormatter = (number) => { 
+  
+  return number.toLocaleString('es-CL', {
+  style: 'currency',
+  currency: 'CLP'
+})}
 
 
 ---
-<Layout title= {nombre} >
-<h1> {nombre} </h1>
-<img class="image-container" src={  imagen.data.attributes.url } alt={nombre}  />
-<h2> {descripcion} </h2>
-<h3> {precio} </h3>
-<p> {detalles}</p>
-<ul>
-{ piscina ? <li>   <p>piscina</p>   </li> : <p></p>  }    
-</ul>
+
+<Layout title={nombre}>
+
+  <section class="flex container mx-auto  justify-center align-center   items-start  gap-4 w-11/12  ">
+
+    <div class="w-6/6 py-4 gap-8 flex  my-8" >
+
+      <div class="w-4/6">
+        <img
+          class="image-container w-full  rounded-lg object-cover h-50"
+          src={imagen.data.attributes.url}
+          alt={nombre}
+        />
+      </div>
+
+      <div class="w-2/6 flex flex-col gap-8  bg-white border border-gray 300 rounded-lg  p-8 ">
+<div>    <h1 class="text-4xl font-bold mb-6" >{nombre}</h1>
+        <span class="text-sm"> {ubicacion}</span></div>
+
+    <div>{descripcion}</div>
+    <h3 class="text-xl font-semibold">{ currencyFormatter(precio)}</h3>
+    <p>{detalles}</p>
+    <ul>
+      {
+        piscina ? (
+          <li>
+            {" "}
+            <p>piscina</p>{" "}
+          </li>
+        ) : (
+          <p />
+        )
+      }
+    </ul>
+    <Form client:load />
+    </div>
+    </div>
+
+  </section>
+  
+
 </Layout>
 
-<Form  client:load/>
 
- 
- 
 <style>
- 
   .astro-a {
     position: absolute;
     top: -32px;
@@ -45,13 +80,7 @@ const propiedad = dataPropiedad.data
     height: auto;
     z-index: -1;
   }
-  h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    margin-bottom: 1em;
-  }
+ 
   .text-gradient {
     background-image: var(--accent-gradient);
     -webkit-background-clip: text;
